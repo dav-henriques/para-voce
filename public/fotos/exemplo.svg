@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- imagem de exemplo: troque por uma foto de vocês (veja o content.js) -->
+  <defs>
+    <radialGradient id="f" cx="50%" cy="40%" r="75%">
+      <stop offset="0" stop-color="#FBE3DC"/>
+      <stop offset="1" stop-color="#F2C6BC"/>
+    </radialGradient>
+    <filter id="r" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="5"/>
+      <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#f)"/>
+  <g fill="none" stroke="#D96B72" stroke-width="3" stroke-linecap="round" opacity=".55" filter="url(#r)">
+    <path d="M120 120c3 18 9 25 26 27-17 3-23 9-26 27-3-18-9-24-26-27 17-2 23-9 26-27z"/>
+    <path d="M660 430c2 12 6 17 18 19-12 2-16 6-18 19-2-13-6-17-18-19 12-2 16-7 18-19z"/>
+    <path d="M640 130c-1 0-24-15-27-30-2-10 5-17 13-17 6 0 11 4 14 9 3-5 8-9 14-9 9 0 15 8 13 17-3 15-26 30-27 30z"/>
+  </g>
+  <g filter="url(#r)" stroke="#8F2638" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M262 228c6-22 18-34 38-36l40-2c10 0 16-6 20-14l10-18c4-8 10-12 20-12h22c10 0 16 4 20 12l10 18c4 8 10 14 20 14l42 2c20 2 32 14 36 36 6 40 6 84 0 124-4 22-16 34-38 36-74 5-148 5-222 0-22-2-34-14-38-36-6-40-6-84 0-124z" fill="#FFF5EA"/>
+    <path d="M400 384c-2-1-64-38-70-78-4-24 12-42 32-42 16 0 29 9 38 23 9-14 22-23 38-23 20 0 36 18 32 42-6 40-68 77-70 78z" fill="#B83B4B" stroke-width="6"/>
+    <path d="M478 212h26" fill="none"/>
+  </g>
+  <path d="M362 298c2-8 7-13 14-15" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+</svg>

@@ -1,0 +1,539 @@
+/* ── palco do bilhete ───────────────────────────────────────────────────── */
+.palco {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  padding: calc(var(--topo) + 10px) calc(var(--dir) + 14px) calc(var(--base) + 20px) calc(var(--esq) + 14px);
+  pointer-events: none;
+}
+
+.ios-app .palco {
+  padding-top: calc(var(--topo) + 14px);
+}
+
+.palco-topo,
+.palco-acoes,
+.palco-cartao {
+  pointer-events: auto;
+}
+
+.palco-topo {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-right: 56px;
+}
+
+.botao-voltar {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 14px 0 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--vinho);
+  cursor: pointer;
+  border-radius: 22px;
+}
+
+.botao-voltar svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (hover: hover) {
+  .botao-voltar:hover {
+    background: rgba(242, 198, 188, 0.35);
+  }
+}
+
+.palco-centro {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  padding: 10px 0 14px;
+}
+
+.palco-cartao {
+  visibility: hidden;
+  will-change: transform;
+}
+
+.palco-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 10px;
+}
+
+/* ── o papel ────────────────────────────────────────────────────────────── */
+.papel {
+  --h: 0px;
+  position: relative;
+  width: var(--largura);
+}
+
+.papel--nota {
+  --largura: min(86vw, 360px);
+}
+
+.papel--carta {
+  --largura: min(92vw, 480px);
+}
+
+.papel-assentado {
+  position: relative;
+  z-index: 1;
+}
+
+.papel-assentado > .folha {
+  height: 100%;
+}
+
+.papel--nota .papel-assentado > .folha {
+  min-height: calc(var(--largura) * 1.08);
+  max-height: calc(100dvh - var(--topo) - var(--base) - 200px);
+}
+
+.papel--carta .papel-assentado > .folha {
+  max-height: calc(100dvh - var(--topo) - var(--base) - 190px);
+}
+
+.papel-faixas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.faixa {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.faixa-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.faixa-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #4a0f1b;
+  opacity: var(--sombra, 0);
+  pointer-events: none;
+}
+
+.faixa-desloca {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--h);
+}
+
+.faixa .folha {
+  height: var(--h);
+}
+
+.papel-sombra {
+  position: absolute;
+  z-index: 0;
+  left: 1.5%;
+  right: 1.5%;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  box-shadow:
+    0 22px 38px -16px rgba(143, 38, 56, 0.42),
+    0 4px 10px rgba(143, 38, 56, 0.12);
+}
+
+/* ── folha (os dois lados do papel) ─────────────────────────────────────── */
+.folha {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--papel);
+  background-image:
+    var(--textura),
+    radial-gradient(120% 80% at 30% 10%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(140% 120% at 70% 100%, rgba(242, 198, 188, 0.28), rgba(242, 198, 188, 0) 55%);
+  box-shadow: inset 0 0 34px rgba(217, 107, 114, 0.13);
+}
+
+.folha-rolagem {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.papel-assentado .folha-rolagem--rolavel {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rosa) transparent;
+}
+
+.papel--transborda .folha-rolagem {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent);
+}
+
+.folha-vinco {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  margin-top: -1.5px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(98, 30, 45, 0.08), rgba(98, 30, 45, 0.02) 45%, rgba(255, 255, 255, 0.7) 55%, rgba(255, 255, 255, 0));
+}
+
+.folha-verso {
+  background: none;
+  box-shadow: none;
+}
+
+.verso {
+  position: absolute;
+  inset: 0;
+  background-color: var(--cor);
+  background-image:
+    var(--textura),
+    radial-gradient(circle, rgba(255, 255, 255, 0.24) 0 1.3px, rgba(255, 255, 255, 0) 1.8px);
+  background-size:
+    auto,
+    15px 15px;
+  box-shadow: inset 0 0 26px rgba(74, 15, 27, 0.18);
+}
+
+.verso--carta {
+  --cor: #f8eadb;
+  background-image: var(--textura);
+  box-shadow: inset 0 0 30px rgba(217, 107, 114, 0.18);
+}
+
+/* ── selo de coração / lacinho ──────────────────────────────────────────── */
+.papel-selo {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  width: 50px;
+  height: 46px;
+  margin: -23px 0 0 -25px;
+  pointer-events: none;
+}
+
+.selo {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.selo svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 2px 2px rgba(74, 15, 27, 0.28));
+}
+
+.papel-selo--cobre {
+  left: 0;
+  right: 0;
+  width: auto;
+  margin: 0;
+}
+
+.laco-carta {
+  position: absolute;
+  inset: 0;
+}
+
+.laco-carta-fita {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 76%;
+  width: 6.5%;
+  background: var(--cereja);
+  border-inline: 1.5px solid var(--vinho);
+}
+
+.laco-carta svg {
+  position: absolute;
+  left: 79.25%;
+  top: 2%;
+  width: 34%;
+  margin-left: -16.3%;
+  overflow: visible;
+}
+
+.laco-carta-titulo {
+  position: absolute;
+  left: 8%;
+  top: 38%;
+  width: 62%;
+  font-family: var(--mao);
+  font-weight: 650;
+  font-size: calc(var(--largura) * 0.105);
+  line-height: 1;
+  color: var(--vinho);
+  text-wrap: balance;
+}
+
+/* ── dentro do bilhete ──────────────────────────────────────────────────── */
+.bilhete {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 50px 30px 34px;
+  text-align: center;
+}
+
+.bilhete-etiqueta {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  color: var(--cereja);
+  opacity: 0.85;
+}
+
+.bilhete-etiqueta .rabisco {
+  width: 1.35em;
+  height: 1.35em;
+}
+
+.bilhete-texto {
+  margin: 0;
+  font-family: var(--mao);
+  font-weight: 550;
+  line-height: 1.16;
+  color: var(--tinta);
+  text-wrap: balance;
+}
+
+[data-tamanho='g'] .bilhete-texto {
+  font-size: clamp(2.15rem, 10vw, 2.6rem);
+}
+
+[data-tamanho='m'] .bilhete-texto {
+  font-size: clamp(1.8rem, 8vw, 2.1rem);
+}
+
+[data-tamanho='p'] .bilhete-texto {
+  font-size: clamp(1.5rem, 6.6vw, 1.75rem);
+}
+
+[data-tamanho='pp'] .bilhete-texto {
+  font-size: clamp(1.3rem, 5.6vw, 1.5rem);
+}
+
+.bilhete-assinatura {
+  align-self: flex-end;
+  margin: 2px 6px 0 0;
+  font-family: var(--mao);
+  font-weight: 550;
+  font-size: 1.35rem;
+  color: var(--cereja);
+  rotate: -3deg;
+}
+
+.bilhete-moldura {
+  position: absolute;
+  inset: 9px;
+  width: calc(100% - 18px);
+  height: calc(100% - 18px);
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--suave);
+  stroke-width: 1.3;
+  stroke-dasharray: 5 3.5;
+  stroke-linecap: round;
+  opacity: 0.45;
+}
+
+.bilhete-enfeite {
+  position: absolute;
+  color: var(--suave);
+  opacity: 0.7;
+}
+
+.bilhete-enfeite--estrela {
+  top: 18px;
+  right: 20px;
+  width: 18px;
+  height: 18px;
+  rotate: 12deg;
+}
+
+.bilhete-enfeite--coracao {
+  bottom: 18px;
+  left: 20px;
+  width: 17px;
+  height: 17px;
+  rotate: -14deg;
+}
+
+.bilhete-foto {
+  position: relative;
+  width: 76%;
+  margin: 6px 0 2px;
+  padding: 8px 8px 0;
+  background: #fff;
+  rotate: -2.5deg;
+  box-shadow: 0 8px 16px -8px rgba(98, 40, 50, 0.45);
+}
+
+.bilhete-foto-moldura {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--rosa);
+}
+
+.bilhete-foto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bilhete-foto figcaption {
+  padding: 6px 2px 8px;
+  font-family: var(--mao);
+  font-size: 1.15rem;
+  line-height: 1.1;
+  color: var(--marrom);
+}
+
+.bilhete-foto:not(:has(figcaption)) {
+  padding-bottom: 24px;
+}
+
+.bilhete-fita {
+  position: absolute;
+  z-index: 1;
+  top: -11px;
+  left: 50%;
+  width: 74px;
+  height: 22px;
+  margin-left: -37px;
+  rotate: 4deg;
+  background: rgba(217, 107, 114, 0.5);
+  clip-path: polygon(0 8%, 6% 0, 12% 10%, 100% 0, 96% 50%, 100% 100%, 88% 92%, 0 100%, 4% 50%);
+}
+
+/* ── a carta especial, aberta ───────────────────────────────────────────── */
+.carta {
+  --linha: 34px;
+  position: relative;
+  padding: 40px 26px 34px 46px;
+}
+
+.carta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 30px;
+  border-left: 1.5px solid rgba(184, 59, 75, 0.3);
+}
+
+.carta-titulo {
+  margin: 0 0 22px -16px;
+  font-family: var(--mao);
+  font-weight: 700;
+  font-size: clamp(2rem, 8.6vw, 2.5rem);
+  line-height: 1;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--vinho);
+}
+
+.carta-sublinhado {
+  display: block;
+  width: 72%;
+  height: 12px;
+  margin: 6px auto 0;
+  color: var(--suave);
+}
+
+.carta-pautado {
+  font-family: var(--mao);
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: var(--linha);
+  color: var(--tinta);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(217, 107, 114, 0) 0,
+    rgba(217, 107, 114, 0) calc(var(--linha) - 1px),
+    rgba(217, 107, 114, 0.3) calc(var(--linha) - 1px),
+    rgba(217, 107, 114, 0.3) var(--linha)
+  );
+  background-position: 0 -6px;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.carta-pautado p {
+  margin: 0 0 var(--linha);
+  text-wrap: pretty;
+}
+
+.carta-saudacao {
+  color: var(--cereja);
+}
+
+.carta-despedida {
+  margin-bottom: 0 !important;
+  text-align: right;
+}
+
+.carta-assinatura {
+  text-align: right;
+  color: var(--cereja);
+  font-weight: 650;
+}
+
+.carta-assinatura-coracao {
+  width: 0.75em;
+  height: 0.75em;
+  vertical-align: -0.05em;
+}
+
+/* palco em telas grandes: um pouquinho mais de respiro */
+@media (min-width: 768px) and (min-height: 760px) {
+  .papel--nota {
+    --largura: 380px;
+  }
+}

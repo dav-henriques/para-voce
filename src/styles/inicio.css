@@ -1,0 +1,694 @@
+/* ── tela inicial ───────────────────────────────────────────────────────── */
+.inicio {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 620px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto minmax(210px, 1fr) auto auto auto;
+  justify-items: center;
+  padding: calc(var(--topo) + 26px) calc(var(--dir) + 20px) calc(var(--base) + 12px) calc(var(--esq) + 20px);
+}
+
+.ios-app .inicio {
+  padding-top: calc(var(--topo) + 30px);
+}
+
+.inicio-saudacao {
+  text-align: center;
+  max-width: 34ch;
+}
+
+.inicio-saudacao h1 {
+  margin: 0;
+  font-family: var(--mao);
+  font-weight: 700;
+  font-size: clamp(2.7rem, 11.5vw, 3.7rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--vinho);
+}
+
+.inicio-subtitulo {
+  margin: 0.12em 0 0;
+  font-family: var(--mao);
+  font-weight: 550;
+  font-size: clamp(1.5rem, 6.6vw, 1.95rem);
+  line-height: 1.05;
+  color: var(--cereja);
+}
+
+.inicio-texto {
+  margin: 0.7em auto 0;
+  max-width: 30ch;
+  font-size: clamp(0.94rem, 3.9vw, 1.04rem);
+  font-weight: 500;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* ── cena: potinho + carta especial ─────────────────────────────────────── */
+.cena {
+  justify-self: stretch;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  padding-top: 10px;
+  container-type: size;
+}
+
+.cena-grupo {
+  position: relative;
+  height: 100%;
+  height: min(100cqh, 430px, 92cqw);
+  aspect-ratio: 248 / 346;
+  translate: -12% 0;
+}
+
+.pote {
+  position: absolute;
+  inset: 0;
+}
+
+.pote-sombra {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: -1.5%;
+  height: 6.5%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(143, 38, 56, 0.3), rgba(143, 38, 56, 0.1) 60%, rgba(143, 38, 56, 0));
+}
+
+.pote-botao {
+  all: unset;
+  position: absolute;
+  inset: 0;
+  display: block;
+  cursor: pointer;
+  border-radius: 40px;
+}
+
+.pote-botao:focus-visible {
+  outline: 2px dashed var(--cereja);
+  outline-offset: 2px;
+}
+
+.pote-hover,
+.pote-flutua,
+.pote-balanca {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pote-hover {
+  transition: transform 0.55s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.pote-flutua,
+.pote-balanca {
+  will-change: transform;
+}
+
+@media (hover: hover) {
+  .pote-botao:hover .pote-hover {
+    transform: translateY(-5px) rotate(-1.2deg);
+  }
+  .pote-botao:hover .pote-rolha {
+    animation: rolha 0.9s ease-in-out;
+  }
+}
+
+.pote-botao:active .pote-hover {
+  transform: scale(0.97);
+  transition-duration: 0.12s;
+}
+
+@keyframes rolha {
+  30% {
+    transform: translateY(-3px) rotate(-3deg);
+  }
+  60% {
+    transform: translateY(-1px) rotate(2deg);
+  }
+}
+
+.pote-rolha {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.pote-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ── a carta especial, fechada ──────────────────────────────────────────── */
+.carta-fechada {
+  all: unset;
+  position: absolute;
+  z-index: 2;
+  width: 60%;
+  right: -40%;
+  bottom: -2%;
+  rotate: -7deg;
+  transform-origin: 50% 100%;
+  cursor: pointer;
+  container-type: inline-size;
+  border-radius: 6px;
+  transition:
+    translate 0.45s cubic-bezier(0.3, 1.5, 0.5, 1),
+    rotate 0.45s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.carta-fechada svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+@media (hover: hover) {
+  .carta-fechada:hover {
+    translate: 0 -6px;
+    rotate: -4deg;
+  }
+}
+
+.carta-fechada:active {
+  translate: 0 2px;
+}
+
+.carta-fechada-titulo {
+  position: absolute;
+  left: 9.5%;
+  top: 33%;
+  width: 66%;
+  font-family: var(--mao);
+  font-weight: 650;
+  font-size: 10.6cqw;
+  line-height: 1;
+  color: var(--vinho);
+  text-align: left;
+  text-wrap: balance;
+}
+
+/* ── chamada com setinha ────────────────────────────────────────────────── */
+.chamada {
+  margin: 4px 0 0;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 4px;
+  font-family: var(--mao);
+  font-weight: 550;
+  font-size: clamp(1.3rem, 5.3vw, 1.55rem);
+  line-height: 1;
+  color: var(--cereja);
+  rotate: -2deg;
+}
+
+.chamada-seta {
+  width: 1.9em;
+  height: 1.3em;
+  color: var(--suave);
+  margin-bottom: 0.35em;
+}
+
+/* ── categorias ─────────────────────────────────────────────────────────── */
+.controles {
+  width: 100%;
+  max-width: 440px;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.categorias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 2px;
+}
+
+.categoria {
+  all: unset;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 40px;
+  padding: 0 10px;
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: var(--marrom);
+  opacity: 0.72;
+  cursor: pointer;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition:
+    color 0.25s,
+    opacity 0.25s;
+}
+
+/* área de toque um pouquinho maior que o desenho */
+.categoria::after,
+.link-dica::after {
+  content: '';
+  position: absolute;
+  inset: -3px 0;
+}
+
+.link-dica {
+  position: relative;
+}
+
+.categoria-icone {
+  width: 1.15em;
+  height: 1.15em;
+  color: var(--suave);
+}
+
+.categoria--ativa {
+  opacity: 1;
+  color: var(--vinho);
+}
+
+.categoria--ativa .categoria-icone {
+  color: var(--cereja);
+}
+
+.categoria-circulo {
+  position: absolute;
+  left: -2px;
+  top: 1px;
+  width: calc(100% + 4px);
+  height: calc(100% - 2px);
+  color: var(--cereja);
+  pointer-events: none;
+}
+
+.categoria-circulo path {
+  stroke-dasharray: 340;
+  stroke-dashoffset: 340;
+  animation: circular 0.55s cubic-bezier(0.6, 0.1, 0.3, 1) forwards;
+}
+
+@keyframes circular {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (hover: hover) {
+  .categoria:hover {
+    opacity: 1;
+  }
+}
+
+/* ── progresso ──────────────────────────────────────────────────────────── */
+.progresso {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+}
+
+.progresso-texto {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 550;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.progresso-texto strong {
+  color: var(--cereja);
+  font-weight: 850;
+}
+
+.progresso-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progresso-linha {
+  position: relative;
+  width: 168px;
+  height: 12px;
+}
+
+.progresso-linha svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.progresso-trilho,
+.progresso-cheio {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.progresso-trilho {
+  stroke: var(--rosa);
+  stroke-width: 3;
+}
+
+.progresso-cheio {
+  stroke: var(--cereja);
+  stroke-width: 3.2;
+  stroke-dasharray: 100;
+  transition: stroke-dashoffset 1.1s cubic-bezier(0.6, 0.1, 0.25, 1);
+}
+
+.progresso-coracao {
+  position: absolute;
+  top: 50%;
+  width: 17px;
+  height: 17px;
+  margin: -9px 0 0 -8.5px;
+  color: var(--cereja);
+  transition: left 1.1s cubic-bezier(0.6, 0.1, 0.25, 1);
+}
+
+.progresso-coracao .rabisco {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.progresso-conta {
+  font-size: 0.74rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
+
+/* ── link da dica do iPhone ─────────────────────────────────────────────── */
+.link-dica {
+  all: unset;
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0.66;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.link-dica span {
+  text-decoration: underline dotted rgba(98, 80, 82, 0.5);
+  text-underline-offset: 3px;
+}
+
+.link-dica svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (hover: hover) {
+  .link-dica:hover {
+    opacity: 1;
+  }
+}
+
+/* ── música ─────────────────────────────────────────────────────────────── */
+.barra-topo {
+  position: fixed;
+  z-index: 25;
+  top: calc(var(--topo) + 10px);
+  right: calc(var(--dir) + 12px);
+}
+
+.ios-app .barra-topo {
+  top: calc(var(--topo) + 14px);
+}
+
+.botao-musica {
+  all: unset;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--marrom);
+  opacity: 0.62;
+  cursor: pointer;
+  border-radius: 50%;
+  transition:
+    opacity 0.3s,
+    color 0.3s;
+}
+
+.botao-musica::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.6px solid currentColor;
+  border-radius: 52% 48% 50% 46% / 48% 52% 46% 54%;
+  opacity: 0.5;
+}
+
+.botao-musica > svg {
+  width: 18px;
+  height: 18px;
+}
+
+.botao-musica--ligada {
+  color: var(--cereja);
+  opacity: 1;
+}
+
+.botao-musica-ondas {
+  position: absolute;
+  right: 1px;
+  bottom: 5px;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.botao-musica-ondas i {
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+  background: currentColor;
+  transform-origin: 50% 100%;
+  animation: onda 0.9s ease-in-out infinite alternate;
+}
+
+.botao-musica-ondas i:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.botao-musica-ondas i:nth-child(3) {
+  animation-delay: -0.6s;
+}
+
+.botao-musica--ligada .botao-musica-ondas {
+  opacity: 1;
+}
+
+@keyframes onda {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ── dica do iPhone ─────────────────────────────────────────────────────── */
+.dica {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  align-items: end;
+  justify-items: center;
+}
+
+.dica-veu {
+  position: absolute;
+  inset: 0;
+  background: rgba(98, 80, 82, 0.3);
+}
+
+.dica-folha {
+  position: relative;
+  width: min(100%, 470px);
+  padding: 28px calc(var(--dir) + 22px) calc(var(--base) + 26px) calc(var(--esq) + 22px);
+  background: var(--papel) var(--textura);
+  border-radius: 26px 22px 0 0 / 20px 24px 0 0;
+  box-shadow: 0 -12px 40px rgba(98, 40, 50, 0.2);
+}
+
+.dica-folha h2 {
+  margin: 0 44px 0 0;
+  font-family: var(--mao);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--vinho);
+}
+
+.dica-intro {
+  margin: 8px 0 18px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.dica-passos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.dica-passos li {
+  display: grid;
+  grid-template-columns: 32px 1fr 24px;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px 11px 11px;
+  background: rgba(242, 198, 188, 0.3);
+  border-radius: 16px 13px 17px 12px / 13px 16px 12px 17px;
+}
+
+.dica-numero {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-family: var(--mao);
+  font-weight: 700;
+  font-size: 1.45rem;
+  color: var(--cereja);
+  border: 1.6px solid currentColor;
+  border-radius: 52% 48% 50% 46% / 48% 52% 46% 54%;
+}
+
+.dica-texto {
+  font-size: 0.93rem;
+  line-height: 1.35;
+}
+
+.dica-texto b {
+  font-weight: 750;
+  color: var(--vinho);
+}
+
+.dica-texto small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  opacity: 0.75;
+}
+
+.dica-icone {
+  width: 22px;
+  height: 22px;
+  color: var(--cereja);
+}
+
+.dica-fechar {
+  all: unset;
+  position: absolute;
+  top: 14px;
+  right: calc(var(--dir) + 12px);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.dica-fechar svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dica-instalar {
+  margin-top: 18px;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .dica {
+    align-items: center;
+  }
+  .dica-folha {
+    border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
+    padding-bottom: 26px;
+  }
+}
+
+/* ── ajustes para telas baixinhas (iPhone SE, Safari com barras) ────────── */
+@media (max-height: 720px) {
+  .inicio {
+    padding-top: calc(var(--topo) + 18px);
+    grid-template-rows: auto minmax(180px, 1fr) auto auto auto;
+  }
+  .inicio-saudacao h1 {
+    font-size: clamp(2.4rem, 10vw, 3rem);
+  }
+  .inicio-subtitulo {
+    font-size: 1.45rem;
+  }
+  .inicio-texto {
+    margin-top: 0.45em;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+  .controles {
+    margin-top: 8px;
+    gap: 4px;
+  }
+  .categoria {
+    min-height: 36px;
+  }
+  .link-dica {
+    margin-top: 0;
+  }
+}
+
+@media (max-height: 620px) {
+  .inicio {
+    grid-template-rows: auto minmax(150px, 1fr) auto auto auto;
+    padding-top: calc(var(--topo) + 12px);
+  }
+  .inicio-saudacao h1 {
+    font-size: 2.3rem;
+  }
+  .inicio-subtitulo {
+    font-size: 1.3rem;
+  }
+  .inicio-texto {
+    max-width: 34ch;
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+  .chamada {
+    font-size: 1.2rem;
+  }
+  .categoria {
+    min-height: 34px;
+    font-size: 0.8rem;
+  }
+}

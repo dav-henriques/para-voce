@@ -1,0 +1,285 @@
+/* ── identidade ─────────────────────────────────────────────────────────── */
+:root {
+  --vinho: #8f2638;
+  --cereja: #b83b4b;
+  --suave: #d96b72;
+  --rosa: #f2c6bc;
+  --creme: #fff5ea;
+  --marrom: #625052;
+  --tinta: #7a2133;
+  --papel: #fffaf2;
+
+  --mao: 'Caveat Variable', 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --texto: 'Nunito Variable', 'Nunito', ui-rounded, system-ui, -apple-system, sans-serif;
+
+  --topo: env(safe-area-inset-top, 0px);
+  --base: env(safe-area-inset-bottom, 0px);
+  --esq: env(safe-area-inset-left, 0px);
+  --dir: env(safe-area-inset-right, 0px);
+
+  /* grão de papel */
+  --textura: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .22 0 0 0 0 .24 0 0 0 .9 -.32'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  /* manchinhas suaves, como papel de verdade */
+  --manchas: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='3' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .85 0 0 0 0 .42 0 0 0 0 .45 0 0 0 1.4 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='.22'/%3E%3C/svg%3E");
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--creme);
+}
+
+body {
+  font-family: var(--texto);
+  color: var(--marrom);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#root {
+  position: fixed;
+  inset: 0;
+  overflow: hidden auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+  position: relative;
+  min-height: 100%;
+  isolation: isolate;
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ── rabiscos ───────────────────────────────────────────────────────────── */
+.rabisco {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.coracao-inline {
+  width: 0.8em;
+  height: 0.8em;
+  margin: 0 0.05em;
+  vertical-align: -0.07em;
+  color: var(--cereja);
+}
+
+/* ── fundo de papel ─────────────────────────────────────────────────────── */
+.fundo {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--creme);
+  background-image:
+    var(--textura),
+    var(--manchas),
+    radial-gradient(130% 95% at 50% 42%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%),
+    radial-gradient(140% 110% at 50% 45%, rgba(217, 107, 114, 0) 60%, rgba(217, 107, 114, 0.13) 100%);
+}
+
+.fundo-enfeite {
+  position: absolute;
+  color: var(--suave);
+  opacity: 0.5;
+  translate: -50% -50%;
+  rotate: var(--r);
+  animation: piscar 5.5s ease-in-out infinite;
+}
+
+.fundo-enfeite .rabisco {
+  display: block;
+}
+
+@keyframes piscar {
+  0%,
+  100% {
+    opacity: 0.55;
+    scale: 1;
+  }
+  50% {
+    opacity: 0.22;
+    scale: 0.82;
+  }
+}
+
+/* ── faixa da barra de status (iPhone com o app instalado) ──────────────── */
+.faixa-status {
+  display: none;
+}
+
+.ios-app .faixa-status {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topo);
+  z-index: 40;
+  pointer-events: none;
+  background: var(--vinho) var(--textura);
+}
+
+.ios-app .faixa-status::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3px;
+  border-bottom: 1.5px dashed rgba(255, 245, 234, 0.4);
+}
+
+.ios-app .faixa-status::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 9px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='9' viewBox='0 0 44 9'%3E%3Cpath d='M0 0H44V2.5C38.5 2.5 38.5 7.6 33 7.6S27.5 2.5 22 2.5 16.5 7.6 11 7.6 5.5 2.5 0 2.5Z' fill='%238F2638'/%3E%3C/svg%3E")
+    repeat-x;
+  background-size: 44px 9px;
+}
+
+@media (orientation: landscape) {
+  .ios-app .faixa-status {
+    display: none;
+  }
+}
+
+/* ── botões desenhados ──────────────────────────────────────────────────── */
+.botao {
+  appearance: none;
+  border: 2px solid var(--vinho);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  min-height: 52px;
+  min-width: 136px;
+  padding: 0 17px;
+  white-space: nowrap;
+  font-family: var(--texto);
+  font-weight: 750;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.25s ease;
+}
+
+.botao--primario {
+  background: var(--cereja);
+  color: var(--creme);
+  box-shadow: 2px 3px 0 var(--vinho);
+}
+
+.botao--primario .coracao-inline {
+  color: var(--creme);
+}
+
+.botao--secundario {
+  background: rgba(255, 250, 242, 0.85);
+  color: var(--vinho);
+  box-shadow: 2px 3px 0 rgba(143, 38, 56, 0.28);
+}
+
+.botao:active {
+  transform: translate(2px, 3px);
+  box-shadow: 0 0 0 transparent;
+}
+
+@media (hover: hover) {
+  .botao--primario:hover {
+    background: #c4434f;
+  }
+  .botao--secundario:hover {
+    background: #fff;
+  }
+}
+
+.botao:focus-visible,
+.botao-voltar:focus-visible,
+.botao-musica:focus-visible,
+.categoria:focus-visible,
+.link-dica:focus-visible,
+.carta-fechada:focus-visible,
+.dica-fechar:focus-visible {
+  outline: 2px dashed var(--cereja);
+  outline-offset: 4px;
+}
+
+/* ── véu atrás do bilhete e coraçõezinhos ───────────────────────────────── */
+.veu {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(255, 245, 234, 0.72);
+  -webkit-backdrop-filter: blur(7px) saturate(1.1);
+  backdrop-filter: blur(7px) saturate(1.1);
+}
+
+.coracoes {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
