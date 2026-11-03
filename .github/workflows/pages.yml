@@ -32,7 +32,7 @@ jobs:
           # o site fica em https://<usuario>.github.io/<nome-do-repositorio>/
           # (num repositório <usuario>.github.io ele fica na raiz)
           BASE: ${{ endsWith(github.event.repository.name, '.github.io') && '/' || format('/{0}/', github.event.repository.name) }}
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
